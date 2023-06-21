@@ -5,5 +5,14 @@ export default defineNuxtConfig({
   alias: {
     // path of current project root folder  
     '@': resolve(__dirname, '/'),
-  }
+  }, 
+  css: [
+    '~/assets/main.css',
+    ],
+    postcss: {
+      plugins: {
+        tailwindcss: {},
+        autoprefixer: {},
+      },
+    },
 })
