@@ -15,4 +15,12 @@ export default defineNuxtConfig({
         autoprefixer: {},
       },
     },
+    
+    runtimeConfig: {
+      // Will be available in both server and client
+      apiBaseURL: process.env.API_BASE_URL,
+      apiToken: process.env.API_TOKEN,
+    },
+    
+
 })
