@@ -1,0 +1,53 @@
+stages:
+  - docker
+  - deploy
+
+variables:
+  GIT_STRATEGY: clone
+  APP_IDENT: cocktails
+  DEPLOY_USER: root
+  DEPLOY_HOST: '' # override this per stage
+  DEPLOY_CMD: >
+    cd /root/setup_$APP_IDENT;
+    ./update.sh
+
+before_script:
+  - 'which ssh-agent || ( apk update && apk add openssh-client )'
+  - 'which bash || ( apk update && apk add bash )'
+  - eval $(ssh-agent -s)
+  - bash -c 'ssh-add <(echo "$SSH_PRIVATE_KEY")'
+  - mkdir -p ~/.ssh && chmod 700 ~/.ssh
+  - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+  - chmod 400 ~/.ssh/config
+
+.default_docker_image: &default_docker_image
+  stage: docker
+  image: docker:23
+  before_script:
+    - echo -n $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+  script:
+    - docker pull $CI_REGISTRY_IMAGE:$IMAGE_TAG || true
+    - docker build -t $CI_REGISTRY_IMAGE:$IMAGE_TAG .
+    - docker push $CI_REGISTRY_IMAGE:$IMAGE_TAG
+
+build_image:
+  <<: *default_docker_image
+  variables:
+    IMAGE_TAG: latest
+  only:
+    - main
+    - add-deployment
+
+deploy_site:
+  stage: deploy
+  image: node:18.16.0-alpine
+  variables:
+    DEPLOY_HOST: sites1.megorei.net
+  script:
+    - echo "Restart $CI_REGISTRY_IMAGE"
+    - echo $DEPLOY_CMD
+    - ssh $DEPLOY_USER@$DEPLOY_HOST $DEPLOY_CMD
+    - echo "Restart $CI_REGISTRY_IMAGE... DONE!"
+  only:
+    - main
+    - add-deployment
