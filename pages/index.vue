@@ -1,14 +1,10 @@
 <script setup lang="ts">
  const { data } = await $fetch('/api/ingredients')
-  console.log(data); 
- 
   const ingredientsWithTitle: Array<string> = [];
   for (const ingredients of data) {
     ingredientsWithTitle.push(ingredients.title);
-    
+
   }
-  console.log(ingredientsWithTitle
-    );
 </script>
 
 <style>

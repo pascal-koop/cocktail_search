@@ -36,7 +36,6 @@ build_image:
     IMAGE_TAG: latest
   only:
     - main
-    - add-deployment
 
 deploy_site:
   stage: deploy
@@ -50,4 +49,3 @@ deploy_site:
     - echo "Restart $CI_REGISTRY_IMAGE... DONE!"
   only:
     - main
-    - add-deployment

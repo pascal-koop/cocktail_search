@@ -1,15 +1,9 @@
-import { resolve } from 'path';
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss',
     '@nuxtjs/google-fonts'
   ],
-  devtools: { enabled: true },
-  alias: {
-    // path of current project root folder
-    '@': resolve(__dirname, '/'),
-  }, 
   googleFonts: {
     download: true,
     preload: true,
@@ -23,7 +17,7 @@ export default defineNuxtConfig({
       },
       Raleway: {
         wght: [300, 400, 500],
-        
+
       },
       'Roboto Condensed': {
         wght: [300, 400, 700],
@@ -31,9 +25,9 @@ export default defineNuxtConfig({
       },
     },
   },
-  css: [
-    '~/assets/main.css',
-  ],
+  tailwindcss: {
+    exposeConfig: true,
+  },
   runtimeConfig: {
     // Will be available only on server-side
     apiBaseUrl: '',
