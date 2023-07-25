@@ -1,8 +1,8 @@
 export default defineEventHandler(async event => {
   const { apiBaseUrl, apiToken } = useRuntimeConfig();
-  const url: string = `${apiBaseUrl}/items/ingredients?fields=title,id`;
+  const ingredientsUrl: string = `${apiBaseUrl}/items/ingredients?fields=title,id`;
   try {
-    const data = await fetch(url, {
+    const data = await fetch(ingredientsUrl, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

@@ -1,24 +1,23 @@
-<script setup lang="ts">
-  const test = '/img/65559b5d-b1d9-40a0-a333-15c394314b0d'
-  const { data } = await $fetch('/api/ingredients')
-  const ingredientsWithTitle: Array<string> = [];
-  for (const ingredients of data) {
-    ingredientsWithTitle.push(ingredients.title);
-
-  }
+<script setup>
+const { data } = await $fetch('/api/ingredients');
 </script>
 
-<style>
-</style>
+<style></style>
 
 <template>
-  <div>
-   <img class="w-1/2" :src="test" alt="Test image">
-   <h1 class="text-2xl">Ingredients</h1>
-  <ul>
-    <li v-for="ingredient in ingredientsWithTitle" :key="ingredient">
-      {{ ingredient }}
-    </li>
-  </ul>
+  <div class="container flex items-center flex-col">
+    <h1
+      class="text-gray-700 text-4xl text-dark-petrol uppercase mx-auto mt-20"
+    >
+      ^Cocktails^
+    </h1>
+    <h2
+      class="text-gray-700 font-roboto-condensed text-2xl font-semibold italic mx-auto my-9 break-words"
+    >
+      Which cocktails can you prepare?
+    </h2>
+    <div>
+      <SearchBar :ingredients="data" />
+    </div>
   </div>
 </template>
