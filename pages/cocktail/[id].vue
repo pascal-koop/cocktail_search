@@ -2,6 +2,7 @@
 const route = useRoute();
 let cocktailUuid = route.params.id;
 let cocktailInformation = ref([]);
+/*Registers a hook to be called right before the component is to be mounted. */
 onBeforeMount(() => {
   searchCocktail(cocktailUuid);
 });
