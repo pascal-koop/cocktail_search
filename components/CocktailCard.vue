@@ -2,6 +2,7 @@
 const props = defineProps(['title', 'description', 'imgId', 'uuid']);
 
 const imgUrl = computed(() => `/img/${props.imgId}`);
+const cocktailUrl = computed(() => `/cocktail/${props.uuid}`);
 </script>
 
 <style></style>
@@ -24,12 +25,12 @@ const imgUrl = computed(() => `/img/${props.imgId}`);
       </p>
     </div>
     <div class="flex justify-end flex-row mx-3 mt-6 mb-3">
-      <button
-        @click="getCocktails()"
+      <NuxtLink
+        :to="cocktailUrl"
         class="bg-purple-800 rounded-[100px] px-6 py-2.5 shadow-lg text-white text-sm font-medium hover:bg-purple-600"
       >
         DETAILS
-      </button>
+      </NuxtLink>
     </div>
   </div>
 </template>
