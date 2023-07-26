@@ -20,7 +20,6 @@ async function searchCocktail(cocktailUuid) {
     });
 
     cocktailInformation.value = data;
-    console.log('cocktailInformation', data);
   } catch (error) {
     console.log('an error occured', error);
   }
@@ -30,5 +29,8 @@ async function searchCocktail(cocktailUuid) {
 <style></style>
 
 <template>
-  <div>h1</div>
+  <!-- <div v-for="information in cocktailInformation">
+    <h1>{{ information.title }}</h1>
+  </div> -->
+  <LazyCocktailDetail :cocktailInformation="cocktailInformation" />
 </template>
