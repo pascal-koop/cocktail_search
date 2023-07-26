@@ -1,7 +1,7 @@
 export default defineEventHandler(async (event) => {
   const { apiBaseUrl, apiToken } = useRuntimeConfig();
   const { uuid } = event.context!.params!;
-  const url: string = `${apiBaseUrl}/assets/${uuid}`;
+  const url: string = `${apiBaseUrl}/assets/${uuid}?width=400&height=360&fit=inside`;
 
   try {
     const response = await fetch(url, {
