@@ -29,3 +29,7 @@ body {
 h1 {
   font-family: var(--h1-font-family) !important;
 }
+
+.text-roboto {
+  font-family: var(--sub-text-font-family) !important;
+}

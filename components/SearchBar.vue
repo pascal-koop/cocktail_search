@@ -6,7 +6,7 @@ const props = defineProps({
   },
 });
 
-const { ingredients } = props
+const { ingredients } = props;
 
 let searchTerm = ref('');
 let chosenIngredients = ref([]);
@@ -36,7 +36,6 @@ const takeIngredient = (event, ingredient) => {
 };
 
 const deleteSpecificIngredient = (value) => {
-  debugger
   let index = chosenIngredients.value.indexOf(value);
   chosenIngredients.value.splice(index, 1);
   let index2 = chosenIngredientsIds.value.indexOf(value.id);
