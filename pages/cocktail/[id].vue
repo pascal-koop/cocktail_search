@@ -1,7 +1,7 @@
 <script setup>
 const route = useRoute();
 let cocktailUuid = route.params.id;
-let cocktailInformation = ref([]);
+let cocktail = ref([]);
 /*Registers a hook to be called right before the component is to be mounted. */
 onBeforeMount(() => {
   searchCocktail(cocktailUuid);
@@ -9,19 +9,19 @@ onBeforeMount(() => {
 
 async function searchCocktail(cocktailUuid) {
   try {
-    const { data } = await $fetch('/api/cocktails/cocktail', {
-      method: 'POST',
+    const { data } = await $fetch("/api/cocktails/cocktail", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         uuid: cocktailUuid,
       }),
     });
 
-    cocktailInformation.value = data;
+    cocktail.value = data;
   } catch (error) {
-    console.log('an error occured', error);
+    console.log("an error occured", error);
   }
 }
 </script>
@@ -32,5 +32,5 @@ async function searchCocktail(cocktailUuid) {
   <!-- <div v-for="information in cocktailInformation">
     <h1>{{ information.title }}</h1>
   </div> -->
-  <LazyCocktailDetail :cocktailInformation="cocktailInformation" />
+  <LazyCocktailDetail :cocktail="cocktail" />
 </template>
