@@ -10,7 +10,7 @@ const props = defineProps(["cocktail"]);
       <h2 class="text-roboto font-normal leading-7 text-zinc-700 text-3xl pb-4 px-6">
         {{ information.title }}
       </h2>
-      <img class="mx-auto" loading="lazy" :src="`/detailImage/${information.image}`" />
+      <img class="mx-auto" loading="lazy" :src="`/dImage/${information.image}`" />
       <h2 class="mt-2 px-6 text-2xl text-roboto font-thin leading-7 text-black">
         Ingredients:
       </h2>
