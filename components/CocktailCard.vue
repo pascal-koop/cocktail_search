@@ -11,13 +11,15 @@ const cocktailUrl = computed(() => `/cocktail/${props.uuid}`);
   <div
     class="container font-sans w-80 rounded-xl drop-shadow-lg bg-fuchsia-50 py-1 my-8 mx-auto border border-stone-300"
   >
-    <h1 class="p-3 text-zinc-900 text-base font-thin leading-normal tracking-tight">
+    <h1
+      class="p-3 text-zinc-900 font-playfair text-base font-thin leading-normal tracking-tight"
+    >
       {{ title }}
     </h1>
     <img class="object-cover" :src="imgUrl" alt="cocktail" />
     <div class="container">
       <p
-        class="font-sans text-sm font-thin leading-tight tracking-tight text-zinc-600 text-left m-3 break-words max-w-xs line-clamp-2"
+        class="font-roboto text-sm font-thin leading-tight tracking-tight text-zinc-600 text-left m-3 break-words max-w-xs line-clamp-2"
       >
         {{ description }}
       </p>

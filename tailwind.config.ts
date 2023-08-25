@@ -1,8 +1,9 @@
 module.exports = {
-
   theme: {
     fontFamily:{
-      'sans': ['Roboto', 'sans-serif'],
+      'playfair': ['"Playfair Display"', 'sans-serif'],
+      'roboto-consensed': ['"Roboto Condensed"', 'sans-serif'],
+      'roboto': ['"Roboto"', 'sans-serif'],
     }
   }
   }

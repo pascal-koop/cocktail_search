@@ -6,7 +6,9 @@ const { data } = await $fetch("/api/ingredients");
 
 <template>
   <div class="container flex items-center flex-col mx-auto">
-    <h1 class="text-gray-700 text-4xl text-dark-petrol uppercase mx-auto mt-20">
+    <h1
+      class="text-gray-700 font-playfair text-4xl text-dark-petrol uppercase mx-auto mt-20"
+    >
       ^Cocktails^
     </h1>
     <h2
