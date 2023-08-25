@@ -22,14 +22,9 @@ body {
   font-family: var(--h2-font-family) !important;
 }
 
-.font-roboto {
-  font-family: var(--sub-text-font-family) !important;
-}
 
 h1 {
   font-family: var(--h1-font-family) !important;
 }
 
-.text-roboto {
-  font-family: var(--sub-text-font-family) !important;
-}
+
