@@ -10,8 +10,11 @@ const { ingredients } = props;
 
 let searchTerm = ref('');
 let chosenIngredients = ref([]);
-let chosenIngredientsIds = ref([]);
 let cocktailInformation = ref([]);
+
+const chosenIngredientsIds = computed(() => {
+  return chosenIngredients.value.map((ingredient) => ingredient.id)
+})
 
 const filteredIngredients = computed(() => {
   return ingredients.filter((ingredient) => {
@@ -21,25 +24,18 @@ const filteredIngredients = computed(() => {
   });
 });
 
-const showIngredients = computed(() => {
-  if (searchTerm.value.length === 0 || searchTerm.value === ' ') {
-    return false;
-  } else {
-    return true;
-  }
-});
+const showIngredients = computed(() => !(searchTerm.value.length === 0));
 
 const takeIngredient = (event, ingredient) => {
   chosenIngredients.value.push(ingredient);
-  chosenIngredientsIds.value.push(ingredient.id);
   searchTerm.value = '';
+  searchCocktails();
 };
 
 const deleteSpecificIngredient = (value) => {
   let index = chosenIngredients.value.indexOf(value);
   chosenIngredients.value.splice(index, 1);
-  let index2 = chosenIngredientsIds.value.indexOf(value.id);
-  chosenIngredientsIds.value.splice(index2, 1);
+  searchCocktails();
 };
 
 const userChoseIngredients = computed(() => {
@@ -50,16 +46,19 @@ const scrollDown = () => {
   window.scrollTo({ top: 360, behavior: 'smooth' });
 };
 
-async function searchCocktails(...cocktailIds) {
-  let cocktailUuids = cocktailIds;
+const cleanupSearchTerm = () => {
+  searchTerm.value = searchTerm.value.trimStart();
+};
+
+const searchCocktails = async () => {
   try {
-    const { data } = await $fetch('/api/cocktails/overview', {
+    const { data } = await $fetch('/api/cocktails/by_ingredients', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        uuid: cocktailUuids,
+        ingredient_uuids: chosenIngredientsIds.value,
       }),
     });
 
@@ -67,7 +66,7 @@ async function searchCocktails(...cocktailIds) {
   } catch (error) {
     console.log('an error occured', error);
   }
-}
+};
 </script>
 
 <style></style>
@@ -89,11 +88,12 @@ async function searchCocktails(...cocktailIds) {
         id="search-bar"
         v-model="searchTerm"
         @keyup="scrollDown"
+        @keydown="cleanupSearchTerm"
         placeholder="Ingredients..."
         autocomplete="off"
       />
       <SvgoSearch
-        @click="searchCocktails(...chosenIngredientsIds)"
+        @click="searchCocktails()"
         class="text-3xl mr-3 my-1 fill-gray-700 transition ease-in duration-200 hover:-translate-y-1 hover:scale-110 cursor-pointer"
       />
     </div>

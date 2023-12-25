@@ -1,8 +1,9 @@
 export default defineEventHandler(async (event) => {
-  const params = await readBody(event);
-  console.log('event', params);
+  const { ingredient_uuids } = await readBody(event);
+  console.log('event', ingredient_uuids);
   const { apiBaseUrl, apiToken } = useRuntimeConfig();
-  const cocktailsUrl: string = `${apiBaseUrl}/items/ingredients/?filter[id][_in]=${params.uuid}&fields=*,cocktails.cocktails_id.title, cocktails.cocktails_id.id,cocktails.cocktails_id.description,cocktails.cocktails_id.image`;
+  const fields = '*,cocktails.cocktails_id.title, cocktails.cocktails_id.id,cocktails.cocktails_id.description,cocktails.cocktails_id.image';
+  const cocktailsUrl: string = `${apiBaseUrl}/items/ingredients/?filter[id][_in]=${ingredient_uuids}&fields=${fields}`;
   try {
     const data = await fetch(cocktailsUrl, {
       method: 'GET',
